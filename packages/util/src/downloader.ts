@@ -1,8 +1,9 @@
-import * as File from "fs";
-import * as Os from "os";
-import * as Path from "path";
-import * as Nugget from "nugget";
-import { rc } from "rc";
+import * as File from 'fs';
+import * as Os from 'os';
+import * as Path from 'path';
+import * as Nugget from 'nugget';
+import { rc } from 'rc';
+import * as ssri from 'ssri';
 
 let tempFileCounter = 0;
 class PharDownloader {
@@ -12,7 +13,7 @@ class PharDownloader {
     this.opts = Object.assign({ autodownload: true }, opts);
     this.npmrc = {};
     try {
-      rc("npm", this.npmrc);
+      rc('npm', this.npmrc);
     } catch (err) {
       console.error(`Failed reading the npm configuration: ${err.message}`);
     }
@@ -26,11 +27,14 @@ class PharDownloader {
     }
 
     switch (Os.platform()) {
-      case "darwin":
-        cachePath = Path.join(Os.homedir(), "Library", "Caches", "@phptools");
+      case 'darwin':
+        cachePath = Path.join(Os.homedir(), 'Library', 'Caches', '@phptools');
+        break;
+      case 'win32':
+        cachePath = Path.join(Os.homedir(), 'AppData', 'Local', '@phptools');
         break;
       default:
-        cachePath = Path.join(Os.homedir(), "@phptools");
+        cachePath = Path.join(Os.homedir(), '@phptools');
     }
     return cachePath;
   }
@@ -54,15 +58,15 @@ class PharDownloader {
       proxy = this.npmrc.proxy;
     }
 
-    if (this.npmrc && this.npmrc["https-proxy"]) {
-      proxy = this.npmrc["https-proxy"];
+    if (this.npmrc && this.npmrc['https-proxy']) {
+      proxy = this.npmrc['https-proxy'];
     }
 
     return proxy;
   }
   get strictSSL() {
     let strictSSL = true;
-    if (this.opts.strictSSL === false || this.npmrc["strict-ssl"] === false) {
+    if (this.opts.strictSSL === false || this.npmrc['strict-ssl'] === false) {
       strictSSL = false;
     }
     return strictSSL;
@@ -73,38 +77,48 @@ class PharDownloader {
   }
 
   protected async verifyIntegrity() {
-    return true;
+    return new Promise<boolean>((resolve, reject) => {
+      ssri
+        .fromStream(File.createReadStream(this.cachedPhar), {
+          algorithms: ['sha256'],
+        })
+        .then((sri) => {
+          const computedIntegrityHash = sri.toString();
+          const expectedIntegrityHash = ssri.fromHex(this.opts.checksum, 'sha256').toString();
+          if (computedIntegrityHash === expectedIntegrityHash) {
+            return resolve(true);
+          }
+          File.unlink(this.cachedPhar, (err) => {
+            if (err) {
+              console.error(`Failed to remove "${this.cachedPhar}".`);
+            }
+            return reject(new Error(`The file downloaded from "${this.opts.url}" failed integrity check.`));
+          });
+        });
+    });
   }
 
   protected async moveTempFileToDestFile(tempFilename, destFilename) {
     const cache = this.cache;
 
     return new Promise<void>((resolve, reject) => {
-      File.rename(
-        Path.join(cache, tempFilename),
-        Path.join(cache, destFilename),
-        (err) => {
-          // err = new Error('sample');
-          if (err) {
-            File.unlink(cache, (cleanupErr) => {
-              if (cleanupErr) {
-                console.error(
-                  `Error deleting cache dir: ${cleanupErr.message}`
-                );
-              }
-            });
-            return reject(err);
-          }
-          return resolve();
+      File.rename(Path.join(cache, tempFilename), Path.join(cache, destFilename), (err) => {
+        // err = new Error('sample');
+        if (err) {
+          File.unlink(cache, (cleanupErr) => {
+            if (cleanupErr) {
+              console.error(`Error deleting cache dir: ${cleanupErr.message}`);
+            }
+          });
+          return reject(err);
         }
-      );
+        return resolve();
+      });
     });
   }
 
   protected async downloadFile(url, destFilename): Promise<any> {
-    const tempFilename = `tmp-${process.pid}-${(tempFileCounter++).toString(
-      16
-    )}-${Path.basename(destFilename)}`;
+    const tempFilename = `tmp-${process.pid}-${(tempFileCounter++).toString(16)}-${Path.basename(destFilename)}`;
     const nuggetOpts = {
       target: tempFilename,
       dir: this.cache,
@@ -138,7 +152,7 @@ class PharDownloader {
       await this.createCacheDir();
       await this.downloadPhar();
     }
-    this.verifyIntegrity();
+    await this.verifyIntegrity();
     return this.cachedPhar;
   }
 
