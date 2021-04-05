@@ -1,6 +1,19 @@
 {
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
+  "files.eol": "\n",
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    ".yarn": true,
+    "**/node_modules": true,
+    "**/dist": false,
+    "**/target": false,
+    "**/jest.config.js": false
+  },
   "cSpell.customWorkspaceDictionaries": [
     {
       "name": "Workspace dictionary",
