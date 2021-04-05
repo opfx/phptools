@@ -6,6 +6,7 @@ import * as Path from 'path';
 import { download } from '@phptools/util';
 
 import * as tool from './constants';
+
 const installDir = Path.join(__dirname, `${tool.name}`);
 let installedVersion = null;
 try {
@@ -24,7 +25,8 @@ download({ url: tool.downloadUrl, destFilename: `${tool.name}-${tool.version}.ph
 
 function onDownloadComplete(downloadedFile, err) {
   if (err) {
-    throw err;
+    console.error(err.message);
+    process.exit(1);
   }
 
   if (!File.existsSync(installDir)) {
@@ -32,7 +34,8 @@ function onDownloadComplete(downloadedFile, err) {
   }
   File.copyFile(downloadedFile, toolPhar, (err) => {
     if (err) {
-      throw err;
+      console.error(err.message);
+      process.exit(1);
     }
     File.writeFile(Path.join(installDir, 'version'), tool.version, (err) => {});
   });
