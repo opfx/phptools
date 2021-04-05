@@ -16,6 +16,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@phptools/composer@workspace:packages/composer":
+  version: 0.0.0-use.local
+  resolution: "@phptools/composer@workspace:packages/composer"
+  dependencies:
+    "@phptools/util": 0.0.0
+  bin:
+    composer: ./src/bin/composer.ts
+    install: ./src/install.ts
+  languageName: unknown
+  linkType: soft
+
 "@phptools/source@workspace:.":
   version: 0.0.0-use.local
   resolution: "@phptools/source@workspace:."

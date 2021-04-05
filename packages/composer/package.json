@@ -1,0 +1,30 @@
+{
+  "name": "@phptools/composer",
+  "version": "0.0.0",
+  "license": "MIT",
+  "homepage": "https://github.com/opfx/phptools",
+  "bugs": "https://github.com/opfx/phptools/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/opfx/phptools.git"
+  },
+  "main": "./src/index.ts",
+  "bin": {
+    "composer": "./src/bin/composer.ts",
+    "install": "./src/install.ts"
+  },
+  "publishConfig": {
+    "main": "index.js",
+    "types": "index.d.ts",
+    "bin": {
+      "composer": "./bin/composer.js"
+    },
+    "scripts": {
+      "postinstall": "node install.js"
+    }
+  },
+  "scripts": {},
+  "dependencies": {
+    "@phptools/util": "0.0.0"
+  }
+}
