@@ -2,6 +2,12 @@
   "name": "@phptools/autoload",
   "version": "0.0.0",
   "license": "MIT",
+  "homepage": "https://github.com/opfx/phptools",
+  "bugs": "https://github.com/opfx/phptools/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/opfx/phptools.git"
+  },
   "main": "./src/index.ts",
   "bin": {
     "install": "./src/install.ts",

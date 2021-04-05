@@ -3,6 +3,12 @@
   "version": "0.0.1",
   "description": "PHP Tools",
   "license": "MIT",
+  "homepage": "https://github.com/opfx/phptools",
+  "bugs": "https://github.com/opfx/phptools/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/opfx/phptools.git"
+  },
   "scripts": {
     "build": "node ./sdk/bin/admin build",
     "publish": "node ./sdk/bin/admin publish"
