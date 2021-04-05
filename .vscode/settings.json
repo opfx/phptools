@@ -22,5 +22,5 @@
       "addWords": true
     }
   ],
-  "cSpell.ignorePaths": ["**/node_modules/**", ".vscode"]
+  "cSpell.ignorePaths": ["**/node_modules/**", ".vscode", "yarn.lock"]
 }
