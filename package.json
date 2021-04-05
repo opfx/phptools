@@ -1,0 +1,23 @@
+{
+  "name": "@phptools/source",
+  "version": "0.0.1",
+  "description": "PHP Tools",
+  "license": "MIT",
+  "scripts": {
+    "build": "node ./sdk/bin/admin build",
+    "publish": "node ./sdk/bin/admin publish"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "@types/node": "^14.14.35",
+    "ansi-colors": "^4.1.1",
+    "minimist": "^1.2.5",
+    "prettier": "^2.2.1",
+    "rimraf": "^3.0.2",
+    "rxjs": "^6.6.6",
+    "temp": "^0.9.4",
+    "typescript": "^4.2.3"
+  }
+}

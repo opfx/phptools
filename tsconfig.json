@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "es2018",
+    // "sourceMap": true,
+    "inlineSourceMap": true,
+    "inlineSources": true,
+    "importHelpers": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "./target/build",
+    "typeRoots": ["node_modules/@types"],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "skipLibCheck": true,
+    "types": ["node"],
+    "lib": ["es2018"],
+    "declaration": true,
+    "baseUrl": ".",
+    "rootDirs": [".", "./target"],
+    "paths": {}
+  },
+  "exclude": ["./target/build", "./sdk"]
+}

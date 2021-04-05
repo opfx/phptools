@@ -1,0 +1,15 @@
+#!/usr/bin/env node
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+'use strict';
+
+
+require('../sdk/lib/bootstrap');
+const packages = require('../sdk/lib/packages').packages;
+const packageName = process.argv[2];
+require(packages[`@phptools/${packageName}`].bin['install']);

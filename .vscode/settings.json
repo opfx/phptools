@@ -1,0 +1,13 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "cSpell.customWorkspaceDictionaries": [
+    {
+      "name": "Workspace dictionary",
+      "description": "These are words that can be used for this workspace",
+      "path": "${workspaceFolder}/sdk/var/cspell/dictionary.txt",
+      "addWords": true
+    }
+  ],
+  "cSpell.ignorePaths": ["**/node_modules/**", ".vscode"]
+}

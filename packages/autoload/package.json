@@ -1,0 +1,24 @@
+{
+  "name": "@phptools/autoload",
+  "version": "0.0.0",
+  "license": "MIT",
+  "main": "./src/index.ts",
+  "bin": {
+    "install": "./src/install.ts",
+    "phpab": "./src/bin/phpab.ts"
+  },
+  "publishConfig": {
+    "main": "index.js",
+    "types": "index.d.ts",
+    "bin": {
+      "phpab": "./bin/phpab.js"
+    },
+    "scripts": {
+      "postinstall": "node install.js"
+    }
+  },
+  "scripts": {},
+  "dependencies": {
+    "@phptools/util": "0.0.0"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "@phptools/util",
+  "version": "0.0.0",
+  "main": "./src/index.ts",
+  "publishConfig": {
+    "main": "index.js",
+    "types": "index.d.ts"
+  },
+  "dependencies": {
+    "nugget": "^2.0.1",
+    "rc": "^1.2.8"
+  }
+}

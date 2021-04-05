@@ -1,0 +1,5 @@
+Phar
+autoload
+phpcs
+phptools
+sumchecker
