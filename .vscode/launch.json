@@ -29,7 +29,7 @@
       "name": "install",
       "skipFiles": ["<node_internals>/**"],
       "program": "${workspaceFolder}/bin/install",
-      "args": ["autoload"],
+      "args": ["phpunit"],
       "outFiles": ["${workspaceFolder}/**/*.js"]
     }
   ]

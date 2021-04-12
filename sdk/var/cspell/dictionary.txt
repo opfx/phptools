@@ -1,6 +1,9 @@
 Phar
+autodownload
 autoload
+npmrc
 phpcs
 phptools
+phpunit
 ssri
 sumchecker
