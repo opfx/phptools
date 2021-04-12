@@ -27,17 +27,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@phptools/phpunit@workspace:packages/phpunit":
-  version: 0.0.0-use.local
-  resolution: "@phptools/phpunit@workspace:packages/phpunit"
-  dependencies:
-    "@phptools/util": 0.0.0
-  bin:
-    install: ./src/install.ts
-    phpunit: ./src/bin/cli.ts
-  languageName: unknown
-  linkType: soft
-
 "@phptools/source@workspace:.":
   version: 0.0.0-use.local
   resolution: "@phptools/source@workspace:."
